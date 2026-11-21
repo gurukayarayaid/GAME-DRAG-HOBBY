@@ -841,7 +841,10 @@
     const el = document.createElement('span');
     el.className = 'burst';
     el.textContent = text;
-    card.append(el);
+    const box = card.getBoundingClientRect();
+    el.style.left = (box.left + box.width / 2) + 'px';
+    el.style.top = (box.top + box.height * 0.38) + 'px';
+    document.body.append(el);
     setTimeout(() => el.remove(), 1100);
   }
 

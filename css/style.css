@@ -703,6 +703,13 @@ button, input { font: inherit; color: inherit; }
 
 .word.matched:hover, .pic.matched:hover { transform: none; }
 
+/* correct answer: the matched picture and word dissolve away.
+   The empty slot keeps its size so the rest of the grid never jumps. */
+.pic.matched, .word.matched {
+  animation: vanish .52s cubic-bezier(.4, 0, .45, 1) .52s forwards;
+  pointer-events: none;
+}
+
 /* drag ghost */
 .drag-ghost {
   position: fixed;
@@ -761,9 +768,7 @@ button, input { font: inherit; color: inherit; }
 
 /* score burst */
 .burst {
-  position: absolute;
-  left: 50%;
-  top: 38%;
+  position: fixed;
   transform: translate(-50%, -50%);
   z-index: 5;
   font-size: clamp(1rem, 1.3vw, 1.5rem);
@@ -904,6 +909,12 @@ body.touch-mode .word.selected::after {
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.035); }
+}
+
+@keyframes vanish {
+  0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  45% { opacity: 1; transform: translateY(-5px) scale(1.06); filter: blur(0); }
+  100% { opacity: 0; transform: translateY(-14px) scale(.68) rotate(-4deg); filter: blur(4px); visibility: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
